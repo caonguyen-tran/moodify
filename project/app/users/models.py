@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
-
-AUTH_PROVIDERS = {'email': 'email', 'google': 'google'}
+from project.settings import AUTH_PROVIDERS
 
 # UserManager can control the user like superuser, staff, set_password
 class UserManager(BaseUserManager):
@@ -31,10 +30,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    objects = UserManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email
